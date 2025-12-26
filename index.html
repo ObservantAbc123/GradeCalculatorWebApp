@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- PWA / Mobile App Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Grades">
+    <meta name="application-name" content="Grade Calculator">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="msapplication-TileColor" content="#2563eb">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Description for SEO/sharing -->
+    <meta name="description" content="A clean, minimal grade calculator for students. Calculate weighted and unweighted grades dynamically.">
+    
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%232563eb' width='100' height='100' rx='20'/><text x='50' y='65' text-anchor='middle' fill='white' font-size='50' font-weight='bold'>A+</text></svg>">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <title>Grade Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Grade Calculator</h1>
+            <p class="subtitle">Calculate your course grades dynamically</p>
+        </header>
+
+        <main>
+            <section class="controls">
+                <div class="mode-toggle">
+                    <label class="toggle-label">
+                        <span class="toggle-text">Weighted Grades</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="weightedMode" checked>
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+                <button type="button" id="addCategory" class="btn btn-primary">Add Category</button>
+            </section>
+
+            <section id="categories" class="categories">
+                <!-- Categories will be dynamically added here -->
+            </section>
+
+            <section class="summary">
+                <h2>Grade Summary</h2>
+                <div class="summary-content">
+                    <div class="summary-row">
+                        <span class="summary-label">Final Grade:</span>
+                        <span id="finalGrade" class="summary-value">--</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Letter Grade:</span>
+                        <span id="letterGrade" class="summary-value">--</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Add categories and grades to calculate your final score.</p>
+            <button type="button" id="clearData" class="btn btn-text">Clear All Data</button>
+        </footer>
+    </div>
+
+    <template id="categoryTemplate">
+        <div class="category" data-category-id="">
+            <div class="category-header">
+                <input type="text" class="category-name" placeholder="Category Name" value="New Category" enterkeyhint="done">
+                <div class="category-weight-group">
+                    <label class="weight-label">Weight</label>
+                    <div class="weight-input-wrapper">
+                        <input type="number" inputmode="decimal" class="category-weight" min="0" max="100" value="25" enterkeyhint="done">
+                        <span class="weight-suffix">%</span>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-icon btn-remove-category" title="Remove Category" aria-label="Remove Category">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="category-body">
+                <div class="grades-list">
+                    <!-- Grades will be added here -->
+                </div>
+                <button type="button" class="btn btn-secondary btn-add-grade">Add Grade</button>
+            </div>
+            <div class="category-footer">
+                <span class="category-average-label">Category Average:</span>
+                <span class="category-average">--</span>
+            </div>
+        </div>
+    </template>
+
+    <template id="gradeTemplate">
+        <div class="grade-row" data-grade-id="">
+            <input type="text" class="grade-name" placeholder="Assignment name" enterkeyhint="next">
+            <div class="grade-score-group">
+                <input type="number" inputmode="decimal" class="grade-score" placeholder="Score" min="0" step="0.01" enterkeyhint="next">
+                <span class="grade-separator">/</span>
+                <input type="number" inputmode="decimal" class="grade-max" placeholder="Max" min="0.01" step="0.01" value="100" enterkeyhint="done">
+            </div>
+            <button type="button" class="btn btn-icon btn-remove-grade" title="Remove Grade" aria-label="Remove Grade">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </template>
+
+    <script src="script.js"></script>
+</body>
+</html>
